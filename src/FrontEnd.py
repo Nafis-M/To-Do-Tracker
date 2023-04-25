@@ -19,7 +19,7 @@ class viewTask(tk.CTkToplevel):
         # self.geometry("400x300")
         # self.resizable(False,False)
         self.allData = roughDraft.getValue(itemID)
-        self.title("Data")
+        self.title("To-Do Info")
         self.itemID = itemID
         self.dataObj = dataObj
         self.mainObj = mainObj
@@ -232,7 +232,7 @@ class ToplevelTaskForm(tk.CTkToplevel):
         super().__init__(*args, **kwargs)
         # self.geometry("400x300")
         # self.resizable(False,False)
-        self.title("Bug Form")
+        self.title("To-Do Form")
         self.frame = frame
         self.listData = listData
         self.mainObj = mainObj
@@ -320,51 +320,52 @@ class app(tk.CTk):
         # add data
         roughDraft.fileChecker()
 
-        self.title("Bug Tracker")
+        self.title("To-Do App")
         self.popUpForm = None
 
         #linux config
         self.host = platform.system()
         if self.host == "Linux":
             self.attributes('-type', 'dialog')
+
         self.frame=tk.CTkFrame(self)
         self.frame.grid_rowconfigure(0, weight=1)
         self.frame.columnconfigure(0, weight=1)
         self.frame.grid(row=0,column=0,sticky="nesw")
         self.tabView = tk.CTkTabview(self.frame)
         self.tabView.grid(row=0,column=0,padx=5, pady=5,sticky="nesw")
-        self.tabView.add("Tracker")
+        self.tabView.add("To-Do")
         self.tabView.add("Settings")
         #four scrollable frames
-        self.openContainerFrame = tk.CTkFrame(self.tabView.tab("Tracker"))
+        self.openContainerFrame = tk.CTkFrame(self.tabView.tab("To-Do"))
         self.openContainerFrame.grid(row=0,column=0, sticky = "nesw", padx = 15, pady=15)
-        self.openFrame = tk.CTkScrollableFrame(self.openContainerFrame,label_text="Open")
+        self.openFrame = tk.CTkScrollableFrame(self.openContainerFrame,label_text=roughDraft.getter()[2])
         self.openFrame.grid(row=0,column=0, sticky = "nesw", padx=15,pady=15)
         self.openContainerFrame.columnconfigure(0, weight=1)
         self.openContainerFrame.grid_rowconfigure(0, weight=1)
         self.openFrame.configure(label_fg_color="#3194F0",label_text_color="white")
 
-        self.progressContainerFrame = tk.CTkFrame(self.tabView.tab("Tracker"))
+        self.progressContainerFrame = tk.CTkFrame(self.tabView.tab("To-Do"))
         self.progressContainerFrame.grid(row=0,column=1, sticky = "nesw", padx = 15, pady=15)
-        self.progressFrame = tk.CTkScrollableFrame(self.progressContainerFrame,label_text="In Progress")
+        self.progressFrame = tk.CTkScrollableFrame(self.progressContainerFrame,label_text=roughDraft.getter()[3])
         self.progressFrame.grid(row=0,column=0, sticky = "nesw", padx = 15, pady=15)
         self.progressContainerFrame.columnconfigure(0, weight=1)
         self.progressContainerFrame.grid_rowconfigure(0, weight=1)
         self.progressFrame.configure(label_fg_color="#20B963", label_text_color="white")
 
 
-        self.reviewContainerFrame = tk.CTkFrame(self.tabView.tab("Tracker"))
+        self.reviewContainerFrame = tk.CTkFrame(self.tabView.tab("To-Do"))
         self.reviewContainerFrame.grid(row=0,column=2, sticky = "nesw", padx = 15, pady=15)
-        self.reviewFrame = tk.CTkScrollableFrame(self.reviewContainerFrame,label_text="Ready For Review")
+        self.reviewFrame = tk.CTkScrollableFrame(self.reviewContainerFrame,label_text=roughDraft.getter()[4])
         self.reviewFrame.grid(row=0,column=0, sticky = "nesw", padx = 15, pady=15)
         self.reviewContainerFrame.columnconfigure(0, weight=1)
         self.reviewContainerFrame.grid_rowconfigure(0, weight=1)
         self.reviewFrame.configure(label_fg_color="#FB6123", label_text_color="white")
 
 
-        self.completeContainerFrame = tk.CTkFrame(self.tabView.tab("Tracker"))
+        self.completeContainerFrame = tk.CTkFrame(self.tabView.tab("To-Do"))
         self.completeContainerFrame.grid(row=0,column=3, sticky = "nesw", padx = 15, pady=15)
-        self.completedFrame= tk.CTkScrollableFrame(self.completeContainerFrame,label_text="Complete")
+        self.completedFrame= tk.CTkScrollableFrame(self.completeContainerFrame,label_text=roughDraft.getter()[5])
         self.completedFrame.grid(row=0,column=0,sticky="nesw", padx = 15, pady=15)
         self.completeContainerFrame.columnconfigure(0, weight=1)
         self.completeContainerFrame.grid_rowconfigure(0, weight=1)
@@ -385,6 +386,15 @@ class app(tk.CTk):
         self.colorLabel.grid(row=1,column=0)
         self.colorOptionMenu = tk.CTkOptionMenu(master = self.settingFrame, values= ["Blue", "Dark Blue", "Green","Orange","Pink", "Retro", "Violet", "Yellow"], command=self.colorSelect)
         self.colorOptionMenu.grid(row=1, column=1)
+        self.renameColumn1Button = tk.CTkButton(master=self.settingFrame, text="Rename Column 1", command=self.rename1Func)
+        self.renameColumn2Button = tk.CTkButton(master=self.settingFrame, text="Rename Column 2", command=self.rename2Func)
+        self.renameColumn3Button = tk.CTkButton(master=self.settingFrame, text="Rename Column 3", command=self.rename3Func)
+        self.renameColumn4Button = tk.CTkButton(master=self.settingFrame, text="Rename Column 4", command=self.rename4Func)
+        self.renameColumn1Button.grid(row=2, column=0, padx=5,pady=10)
+        self.renameColumn2Button.grid(row=2, column=1, padx=5,pady=10)
+        self.renameColumn3Button.grid(row=3, column=0, padx=5)
+        self.renameColumn4Button.grid(row=3, column=1, padx=5)
+
         # Color
         if roughDraft.getter()[0] == "src/orange.json":
             self.colorOptionMenu.set("Orange")
@@ -414,21 +424,60 @@ class app(tk.CTk):
                                   dark_image=Image.open("src/logo.png"),
                                   size=(100,100))
         self.imageLabel = tk.CTkLabel(self.settingFrame, image=self.foxLogo,text="")
-        self.imageLabel.grid(row=2,column=0, padx=10, pady=10)
+        self.imageLabel.grid(row=4,column=0, padx=10, pady=10)
         self.foxFont = tk.CTkFont(family="Calibri", size=24)
         self.foxLabel = tk.CTkLabel(self.settingFrame, text="FoxFile Inc.", font=self.foxFont)
-        self.foxLabel.grid(row=2,column=1)
+        self.foxLabel.grid(row=4,column=1)
 
         # Weight for the scrollable frames
         for x in range(4):
-            self.tabView.tab("Tracker").columnconfigure(x, weight=1)
-            self.tabView.tab("Tracker").grid_rowconfigure(0, weight=1)
+            self.tabView.tab("To-Do").columnconfigure(x, weight=1)
+            self.tabView.tab("To-Do").grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
         #currently holding all the task frame in a list
         self.allTaskList = []
         self.startupLoadData()
+
+    #Rename Column Functions
+    def renameColumnPopUpFunc(self, column):
+        def rename():
+            roughDraft.setterColumn(column, dialogEntry.get())
+            if column == 1:
+                self.openFrame.configure(label_text=dialogEntry.get())
+            elif column == 2:
+                self.progressFrame.configure(label_text=dialogEntry.get())
+            elif column == 3:
+                self.reviewFrame.configure(label_text=dialogEntry.get())
+            elif column == 4:
+                self.completedFrame.configure(label_text=dialogEntry.get())
+            exit()
+        def exit():
+            dialog.destroy()
+        dialog = tk.CTkToplevel()
+        dialog.title("To-Do")
+        dialog.geometry("210x250")
+        dialogFrame = tk.CTkFrame(dialog)
+        dialogFrame.place(relx=.5, rely=.5,anchor= tk.CENTER)
+        dialogLabel = tk.CTkLabel(dialogFrame, text="Type in new Name: ")
+        dialogLabel.grid(row=0, column=0, padx=10,pady=10)
+        dialogEntry = tk.CTkEntry(dialogFrame)
+        dialogEntry.grid(row=1,column=0, padx=10,pady=10)
+        dialogEnterButton = tk.CTkButton(dialogFrame, text="Enter", command=rename)
+        dialogEnterButton.grid(row=2,column=0,padx=10,pady=10)
+        dialogCancelButton = tk.CTkButton(dialogFrame, text="Cancel", command=exit)
+        dialogCancelButton.grid(row=3,column=0, padx=10,pady=10)
+        dialog.grab_set()
+    def rename1Func(self):
+        self.renameColumnPopUpFunc(1)
+    def rename2Func(self):
+        self.renameColumnPopUpFunc(2)
+    def rename3Func(self):
+        self.renameColumnPopUpFunc(3)
+    def rename4Func(self):
+        self.renameColumnPopUpFunc(4)
+
     '''set color theme'''
     def colorSelect(self, color):
         if color == "Orange":
@@ -462,8 +511,10 @@ class app(tk.CTk):
         self.restartButton =tk.CTkButton(master=self.restartPopup, text="Restart", command=self.exitFunc)
         self.restartButton.pack(padx=10,pady=20)
         self.restartPopup.protocol("WM_DELETE_WINDOW", self.exitFunc)
+    
     def exitFunc(self):
         self.destroy()
+    
     def themeSelect(self, color):
         if color == "Dark":
             roughDraft.setter(roughDraft.getter()[0], "dark")

@@ -14,7 +14,7 @@ def initialize():
 
 def oinitialize():
     dcoument = open("storage.pickle","wb")
-    storage = ["blue","system"]
+    storage = ["blue", "system", "Not Started", "In Progress", "On Hold", "Done"]
     pickle.dump(storage,dcoument)
     dcoument.close()
 
@@ -38,10 +38,17 @@ def setter(color, theme):
     ofileChecker()
     document = open("storage.pickle","rb")
     storage = pickle.load(document)
-    storage.pop()
-    storage.pop()
-    storage.append(color)
-    storage.append(theme)
+    storage[0] = color
+    storage[1] = theme
+    document = open("storage.pickle","wb")
+    pickle.dump(storage,document)
+    document.close()
+
+def setterColumn(index,column):
+    ofileChecker()
+    document = open("storage.pickle","rb")
+    storage = pickle.load(document)
+    storage[1+index] = column
     document = open("storage.pickle","wb")
     pickle.dump(storage,document)
     document.close()
