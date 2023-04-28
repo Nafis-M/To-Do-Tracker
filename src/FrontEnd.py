@@ -665,7 +665,7 @@ class loginApp(tk.CTk):
 
         # error checker
         error = False
-        if username == "":
+        if username == "" or "." in username:
             self.usernameLabel.configure(text_color = "red")
             error = True
         if password == "":

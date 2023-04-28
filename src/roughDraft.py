@@ -20,10 +20,10 @@ def fileChecker():
         return True
 
 def oinitialize():
-    dcoument = open("storage.pickle","wb")
+    document = open("storage.pickle","wb")
     storage = ["blue", "system", "Not Started", "In Progress", "On Hold", "Done", "tracker.pickle"]
-    pickle.dump(storage,dcoument)
-    dcoument.close()
+    pickle.dump(storage, document)
+    document.close()
 
 
 def ofileChecker():
@@ -51,7 +51,23 @@ def setterColumn(index,column):
     storage[1+index] = column
     document = open("storage.pickle","wb")
     pickle.dump(storage,document)
+    document = open("storage.pickle","rb")
+
+    tempText = storage[6].split(".")
+    document1 = open(tempText[0]+"Column"+"."+tempText[1], "rb")
+    storage1 = pickle.load(document1)
+    document1 = open(tempText[0]+"Column"+"."+tempText[1], "wb")
+    print(storage1)
+    print(storage)
+
+    storage1[0] = storage[2]
+    storage1[1] = storage[3]
+    storage1[2] = storage[4]
+    storage1[3] = storage[5]
+    pickle.dump(storage1, document1)
     document.close()
+    document1.close()
+
 
 def getter():
     document = open("storage.pickle","rb")
@@ -68,8 +84,8 @@ def storage(name, description, date, priority, position):
     keys = name + str(random.randint(0,100)) + str(len(storage) + 1) + str(random.randint(1,9))
     ''' storing the unique key and value into the dictionary and then storing it into the pickle '''
     storage[keys] = hold
-    ndocument = open(getCurrentUserLoginFunc(),"wb")
-    pickle.dump(storage, ndocument)
+    nDocument = open(getCurrentUserLoginFunc(),"wb")
+    pickle.dump(storage, nDocument)
     document.close()
     ''' returning the unique key '''
     return keys
@@ -85,10 +101,10 @@ def getAllKeys():
     ''' this function returns ALL keys that have been stored in the pickle file '''
     document = open(getCurrentUserLoginFunc(),"rb")
     storage = pickle.load(document)
-    keylist = []
-    keylist = list(storage.keys())
+    keyList = []
+    keyList = list(storage.keys())
     
-    return keylist
+    return keyList
 
 def getSpecificKey(name, description, date, priority, position):
     ''' this function searches for a specific key using the values in the dictionary '''
@@ -148,11 +164,17 @@ def signupAccountFunc(username = "", password = ""):
     pickle.dump(accountInfo, account)
     account.close()
 
-    #Create a database for said user
+    # Create a database for said user
     document = open(f"{username}.pickle","wb")
     storage = {}
     pickle.dump(storage,document)
     document.close()
+
+    
+    document1 = open(f"{username}Column.pickle","wb")
+    storage1 = ["Not Started", "In Progress", "On Hold", "Done"]
+    pickle.dump(storage1,document1)
+    document1.close()
     return True
 
 def loginAccountFunc(username = "", password = ""):
@@ -173,6 +195,17 @@ def setCurrentUserLoginFunc(userFile):
     document = open("storage.pickle","rb")
     storage = pickle.load(document)
     storage[6] = userFile
+
+    tempText = userFile.split(".")
+    document1 = open(tempText[0]+"Column"+"."+tempText[1],"rb")
+    storage1 = pickle.load(document1)
+    document1.close()
+
+    storage[2] = storage1[0]
+    storage[3] = storage1[1]
+    storage[4] = storage1[2]
+    storage[5] = storage1[3]
+
     document = open("storage.pickle","wb")
     pickle.dump(storage,document)
     document.close()
