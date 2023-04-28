@@ -1,17 +1,5 @@
 <a name="readme-top"></a>
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -91,7 +79,9 @@ Require CustomTkinter, and Pillow
 
 <!-- USAGE EXAMPLES -->
 ## Usage Images
-![Imgur Image](https://i.imgur.com/ss3Fe8m.mp4)
+![](/imges/Login.gif)
+![](/imges/Move.gif)
+![](/imges/Rename.gif)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
