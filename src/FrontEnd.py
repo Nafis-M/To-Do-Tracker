@@ -564,12 +564,129 @@ class app(tk.CTk):
         else:
             self.popUpForm.focus()  # if window exists focus it
 
+
+class loginApp(tk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title("To-Do App")
+
+        #linux config
+        self.host = platform.system()
+        if self.host == "Linux":
+            self.attributes('-type', 'dialog')
+
+        self.loginSuccess = False
+
+        self.font = tk.CTkFont(family="Calibri Bold", size=30)
+        self.loginLabel = tk.CTkLabel(self, text="Login",font=self.font)
+        self.loginLabel.pack(padx=10,pady=10)
+
+        self.frameBottom = tk.CTkFrame(self)
+        self.frameBottom.pack()
+        self.usernameLabel = tk.CTkLabel(self.frameBottom, text="Username: ")
+        self.usernameLabel.grid(row=0,column=0, padx=10,pady=10)
+        self.usernameEntry = tk.CTkEntry(self.frameBottom)
+        self.usernameEntry.grid(row=0, column=1, padx=10,pady=10)
+        self.passwordLabel = tk.CTkLabel(self.frameBottom, text="Password: ")
+        self.passwordLabel.grid(row=1, column=0,padx=10,pady=10)
+        self.passwordEntry = tk.CTkEntry(self.frameBottom)
+        self.passwordEntry.grid(row=1, column=1,padx=10,pady=10)
+
+        # Error button
+        self.loginButton = tk.CTkButton(self,text="Login",command=self.loginButtonFunc)
+        self.loginButton.pack(padx=10,pady=10)
+        self.signupButton = tk.CTkButton(self,text="Signup",command=self.signupButtonFunc)
+        self.signupButton.pack(padx=10,pady=10)
+        self.signupButton2 = tk.CTkButton(self,text="Signup",command=self.signupButtonFunc2)
+        # Error Message
+        self.errorMessage = tk.CTkLabel(self, text = "")
+        self.errorMessage.pack(padx=10, pady=10)
+
+
+    def loginButtonFunc(self):
+        username = self.usernameEntry.get()
+        password = self.passwordEntry.get()
+
+        # reset color/error message
+        self.color= self.loginLabel.cget("text_color")
+        self.errorMessage.configure(text="")
+        self.usernameLabel.configure(text_color = self.color)
+        self.passwordLabel.configure(text_color = self.color)
+
+        # error checker
+        error = False
+        if username == "":
+            self.usernameLabel.configure(text_color = "red")
+            error = True
+        if password == "":
+            self.passwordLabel.configure(text_color = "red")
+            error = True
+        if error:
+            self.errorMessage.configure(text="Invalid Input")
+            return False
+        if not roughDraft.loginAccountFunc(username, password):
+            self.errorMessage.configure(text="Wrong username or password\nPlease try again")
+            return False
+        self.loginSuccess = True
+        self.destroy()
+        return True
+        
+    def signupButtonFunc(self):
+        # reset color/error message
+        self.color= self.loginLabel.cget("text_color")
+        self.errorMessage.configure(text="")
+        self.usernameLabel.configure(text_color = self.color)
+        self.passwordLabel.configure(text_color = self.color)
+
+        # remove button and add new signup button
+        self.loginButton.pack_forget()
+        self.signupButton.pack_forget()
+        self.errorMessage.pack_forget()
+        self.signupButton2.pack(padx=10,pady=10)
+        self.errorMessage.pack()
+
+    def signupButtonFunc2(self):
+        username = self.usernameEntry.get()
+        password = self.passwordEntry.get()
+
+        # reset color/error message
+        self.color= self.loginLabel.cget("text_color")
+        self.errorMessage.configure(text="")
+        self.usernameLabel.configure(text_color = self.color)
+        self.passwordLabel.configure(text_color = self.color)
+
+        # error checker
+        error = False
+        if username == "":
+            self.usernameLabel.configure(text_color = "red")
+            error = True
+        if password == "":
+            self.passwordLabel.configure(text_color = "red")
+            error = True
+        if error:
+            self.errorMessage.configure(text="Invalid Input")
+            return False
+        if not roughDraft.signupAccountFunc(username, password):
+            self.usernameLabel.configure(text_color = "red")
+            self.errorMessage.configure(text="Username Taken")
+            return False
+        roughDraft.loginAccountFunc(username, password)
+        self.loginSuccess = True
+        self.destroy()
+        return True
+
 if __name__ == "__main__":
     roughDraft.ofileChecker()
+    roughDraft.makeAccountInfoFunc()
     print(roughDraft.getter()[0])
     print(roughDraft.getter()[1])
     tk.set_appearance_mode(roughDraft.getter()[1])
     tk.set_default_color_theme(roughDraft.getter()[0])
-    app = app()
-    app.geometry("1200x600")
-    app.mainloop()
+    appLogin = loginApp()
+    appLogin.geometry("300x400")
+    appLogin.mainloop()
+    if appLogin.loginSuccess:
+        del appLogin
+        app = app()
+        app.geometry("1200x600")
+        app.mainloop()
