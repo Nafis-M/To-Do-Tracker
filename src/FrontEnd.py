@@ -589,7 +589,7 @@ class loginApp(tk.CTk):
         self.usernameEntry.grid(row=0, column=1, padx=10,pady=10)
         self.passwordLabel = tk.CTkLabel(self.frameBottom, text="Password: ")
         self.passwordLabel.grid(row=1, column=0,padx=10,pady=10)
-        self.passwordEntry = tk.CTkEntry(self.frameBottom)
+        self.passwordEntry = tk.CTkEntry(self.frameBottom, show="*")
         self.passwordEntry.grid(row=1, column=1,padx=10,pady=10)
 
         # Error button
@@ -644,10 +644,18 @@ class loginApp(tk.CTk):
         self.errorMessage.pack_forget()
         self.signupButton2.pack(padx=10,pady=10)
         self.errorMessage.pack()
+        self.loginLabel.configure(text="Signup")
+
+        self.passwordLabel2 = tk.CTkLabel(self.frameBottom, text="Retype password:")
+        self.passwordEntry2 = tk.CTkEntry(self.frameBottom, show = "*")
+        self.passwordLabel2.grid(row = 2, column = 0, padx=10, pady=10)
+        self.passwordEntry2.grid(row = 2, column = 1, padx=10, pady=10)
+
 
     def signupButtonFunc2(self):
         username = self.usernameEntry.get()
         password = self.passwordEntry.get()
+        password2 = self.passwordEntry2.get()
 
         # reset color/error message
         self.color= self.loginLabel.cget("text_color")
@@ -663,9 +671,19 @@ class loginApp(tk.CTk):
         if password == "":
             self.passwordLabel.configure(text_color = "red")
             error = True
+        if password2 == "":
+            self.passwordLabel2.configure(text_color = "red")
+            error = True
         if error:
             self.errorMessage.configure(text="Invalid Input")
             return False
+
+        if password != password2:
+            self.errorMessage.configure(text="Password does not match")
+            self.passwordLabel.configure(text_color = "red")
+            self.passwordLabel2.configure(text_color = "red")
+            return False
+
         if not roughDraft.signupAccountFunc(username, password):
             self.usernameLabel.configure(text_color = "red")
             self.errorMessage.configure(text="Username Taken")
@@ -683,7 +701,7 @@ if __name__ == "__main__":
     tk.set_appearance_mode(roughDraft.getter()[1])
     tk.set_default_color_theme(roughDraft.getter()[0])
     appLogin = loginApp()
-    appLogin.geometry("300x400")
+    appLogin.geometry("300x300")
     appLogin.mainloop()
     if appLogin.loginSuccess:
         del appLogin
