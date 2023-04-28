@@ -88,6 +88,7 @@ Require CustomTkinter, and Pillow
 
 <!-- CONTRIBUTING -->
 ## Contributing
+* [Andy Huang](https://github.com/AndyHCode)
 * [Nafis-M](https://github.com/Nafis-M)
 * [Syed Usman](https://github.com/UZIIMAN)
 
