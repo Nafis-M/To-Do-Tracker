@@ -27,7 +27,7 @@
     </li>
     <li><a href="#prerequisites">Prerequisites</a></li>
     <li><a href="#installation">Installation</a></li>
-    <li><a href="#usage-images">Usage Images</a></li>
+    <li><a href="#usage-example">Usage Example</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -78,7 +78,7 @@ Require CustomTkinter, and Pillow
 
 
 <!-- USAGE EXAMPLES -->
-## Usage Images
+## Usage Example
 ![](/imges/Login.gif)
 ![](/imges/Move.gif)
 ![](/imges/Rename.gif)
