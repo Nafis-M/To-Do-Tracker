@@ -44,10 +44,10 @@ with a login functionality. This project is meant for my group member and me to 
 
 
 
-### Built With
-* Python
-  * CustomTkinter
-  * Pillow
+## Built With
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
+* Using CustomTkinter for the GUI and Pillow for the image loading
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -55,7 +55,7 @@ with a login functionality. This project is meant for my group member and me to 
 
 
 <!-- GETTING STARTED -->
-### Prerequisites
+## Prerequisites
 Require CustomTkinter, and Pillow
   ```sh
   pip install Pillow
@@ -65,14 +65,14 @@ Require CustomTkinter, and Pillow
 ### Installation
 
 1. Clone the repo
-   ```sh
-   git clone https://github.com/AndyHCode/To-Do-Tracker
-   ```
+  ```sh
+  git clone https://github.com/AndyHCode/To-Do-Tracker
+  ```
 2. open terminal in to-do-tracker folder
 3. run FrontEnd.py
-   ```sh
-   python ./src/FrontEnd.py
-   ```
+  ```sh
+  python ./src/FrontEnd.py
+  ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
