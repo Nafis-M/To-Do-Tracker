@@ -27,7 +27,7 @@
     </li>
     <li><a href="#prerequisites">Prerequisites</a></li>
     <li><a href="#installation">Installation</a></li>
-    <li><a href="#usage-images">Usage Images</a></li>
+    <li><a href="#usage-example">Usage Example</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -44,10 +44,10 @@ with a login functionality. This project is meant for my group member and me to 
 
 
 
-### Built With
-* Python
-  * CustomTkinter
-  * Pillow
+## Built With
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
+* Using CustomTkinter for the GUI and Pillow for the image loading
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -55,7 +55,7 @@ with a login functionality. This project is meant for my group member and me to 
 
 
 <!-- GETTING STARTED -->
-### Prerequisites
+## Prerequisites
 Require CustomTkinter, and Pillow
   ```sh
   pip install Pillow
@@ -65,20 +65,20 @@ Require CustomTkinter, and Pillow
 ### Installation
 
 1. Clone the repo
-   ```sh
-   git clone https://github.com/AndyHCode/To-Do-Tracker
-   ```
+  ```sh
+  git clone https://github.com/AndyHCode/To-Do-Tracker
+  ```
 2. open terminal in to-do-tracker folder
 3. run FrontEnd.py
-   ```sh
-   python ./src/FrontEnd.py
-   ```
+  ```sh
+  python ./src/FrontEnd.py
+  ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- USAGE EXAMPLES -->
-## Usage Images
+## Usage Example
 ![](/imges/Login.gif)
 ![](/imges/Move.gif)
 ![](/imges/Rename.gif)
